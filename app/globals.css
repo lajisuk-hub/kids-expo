@@ -274,3 +274,16 @@ table.list th { color: var(--muted); font-weight: 600; font-size: 12px; }
 .song-float { position: absolute; right: -2%; top: -6%; font-style: normal; font-size: 1.7em; line-height: 1; color: var(--c); text-shadow: 0 2px 4px rgba(0,0,0,.25); animation: noteFloat 2.4s ease-in-out infinite; }
 @keyframes noteFloat { 0%,100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-14%) rotate(8deg); } }
 .it.mine .song .inst-svg { filter: drop-shadow(0 0 0 5px var(--sun)) drop-shadow(0 8px 14px rgba(40,30,10,.35)); }
+
+iframe.play-video { border: 0; }
+
+/* ── 체험 전시: 유튜브 → 안아주기 마무리 이어 재생 ───────── */
+.play-box { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 18px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.play-box .yt-wrap, .play-box .yt-wrap iframe, .play-box > video.play-video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: 0; box-shadow: none; aspect-ratio: auto; }
+.play-box .hug-video { display: none; }
+.play-box.hugging .hug-video { display: block; z-index: 2; }
+.play-box.hugging .yt-wrap { visibility: hidden; }
+.play-box:fullscreen { border-radius: 0; }
+.play-done { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: rgba(0,0,0,.72); color: #fff; }
+.play-done b { font-family: var(--font-title); font-weight: 400; font-size: 40px; color: #ffd1dc; }
+.play-done .btn { width: auto; }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
-import { loadSpace, saveSpace, loadItems, setItemHidden, sha256, DEFAULT_VIDEO } from "../../lib/supabase";
+import { loadSpace, saveSpace, loadItems, setItemHidden, sha256, DEFAULT_VIDEO, OUR_VIDEO } from "../../lib/supabase";
 import { INSTRUMENTS, playSong } from "../../lib/synth";
 import { moodOf } from "./DrawGallery";
 
@@ -117,9 +117,9 @@ export default function Admin({ code }) {
         <h2>2. 어린이집 이름 · 체험 영상</h2>
         <label className="f">어린이집 이름</label>
         <input className="inp" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} />
-        <label className="f">체험 전시 영상 주소 (비워 두면 기본 「따라 해 보세요」 영상)</label>
+        <label className="f">체험 전시 영상 주소 (비워 두면 기본 영상)</label>
         <input className="inp" value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} placeholder={DEFAULT_VIDEO} />
-        <p className="sub" style={{ marginTop: 6 }}>mp4 파일 주소를 넣으면 우리 원만의 체험 영상으로 바뀌어요.</p>
+        <p className="sub" style={{ marginTop: 6 }}>유튜브 주소(youtu.be/… 또는 watch?v=…)나 mp4 파일 주소를 넣으면 우리 원만의 체험 영상으로 바뀌어요. 직접 만든 「따라 해 보세요」 영상 주소: <code style={{ fontSize: 11, wordBreak: "break-all" }}>{OUR_VIDEO}</code></p>
         <button className="btn" onClick={saveInfo} disabled={busy}>{busy ? "저장 중…" : "저장"}</button>
       </div>
 
