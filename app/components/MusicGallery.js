@@ -12,13 +12,55 @@ export const CARD_COLORS = ["#ff6b6b", "#ff9f43", "#ffd93d", "#6bcb77", "#4d96ff
 export const hash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
 export const instOf = (id) => INSTRUMENTS.find((i) => i.id === id) || INSTRUMENTS[0];
 
+// 악기 모양 카드: 피아노(건반) · 실로폰(알록달록 막대와 채) · 오르골(뚜껑 열린 상자 위 춤추는 인형)
+function PianoShape({ c }) {
+  return (
+    <svg viewBox="0 0 100 100" className="inst-svg">
+      <path d="M14 30 Q14 14 30 14 H78 Q90 14 90 28 V62 Q90 70 82 70 H18 Q10 70 10 62 V34 Z" fill={c} />
+      <path d="M22 24 H76 Q82 24 82 30 V40 H16 V30 Q16 24 22 24 Z" fill="#fff" opacity=".22" />
+      <rect x="10" y="56" width="80" height="22" rx="4" fill="#fffdf7" stroke="#3a2d2a" strokeWidth="2" />
+      {[0,1,2,3,4,5,6].map((i) => <line key={i} x1={10 + (i + 1) * 80 / 7.0} y1="56" x2={10 + (i + 1) * 80 / 7.0} y2="78" stroke="#c9b8a8" strokeWidth="1.5" />)}
+      {[0,1,3,4,5].map((i) => <rect key={i} x={10 + (i + 0.72) * 80 / 7} y="56" width="6.4" height="13" rx="1" fill="#3a2d2a" />)}
+      <rect x="18" y="78" width="6" height="12" fill="#3a2d2a" /><rect x="76" y="78" width="6" height="12" fill="#3a2d2a" />
+      <text x="50" y="47" textAnchor="middle" fontSize="16" fill="#fff" fontFamily="Jua, sans-serif">♪</text>
+    </svg>
+  );
+}
+function XyloShape({ c }) {
+  const bars = ["#ff6b6b", "#ff9f43", "#ffd93d", "#6bcb77", "#4d96ff", "#845ec2"];
+  return (
+    <svg viewBox="0 0 100 100" className="inst-svg">
+      <path d="M16 22 H84 L92 80 H8 Z" fill="#d9b07a" stroke="#9a6b32" strokeWidth="2" strokeLinejoin="round" />
+      {bars.map((col, i) => { const w = 60 - i * 7; const y = 28 + i * 9; return <rect key={i} x={50 - w / 2} y={y} width={w} height="7" rx="3.5" fill={col} stroke="#3a2d2a" strokeWidth="1.2" />; })}
+      <g stroke="#6b4f3a" strokeWidth="3" strokeLinecap="round"><line x1="22" y1="92" x2="42" y2="66" /><line x1="78" y1="92" x2="58" y2="66" /></g>
+      <circle cx="42" cy="64" r="5" fill={c} stroke="#3a2d2a" strokeWidth="1.2" /><circle cx="58" cy="64" r="5" fill={c} stroke="#3a2d2a" strokeWidth="1.2" />
+    </svg>
+  );
+}
+function BoxShape({ c }) {
+  return (
+    <svg viewBox="0 0 100 100" className="inst-svg">
+      <path d="M18 52 H82 L86 86 H14 Z" fill="#b8865a" stroke="#6b4f3a" strokeWidth="2" strokeLinejoin="round" />
+      <rect x="22" y="58" width="56" height="8" rx="2" fill="#fff" opacity=".2" />
+      <path d="M18 52 L30 24 H78 L82 52 Z" fill={c} stroke="#6b4f3a" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M34 30 H74 L77 46 H30 Z" fill="#fff" opacity=".35" />
+      <circle cx="54" cy="36" r="5.5" fill="#ffe0c2" stroke="#3a2d2a" strokeWidth="1.2" />
+      <path d="M54 42 L47 58 H61 Z" fill="#ff6fb5" stroke="#3a2d2a" strokeWidth="1.2" strokeLinejoin="round" />
+      <path d="M50 46 L40 40 M58 46 L68 40" stroke="#3a2d2a" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M86 66 H93 V72" fill="none" stroke="#6b4f3a" strokeWidth="3" strokeLinecap="round" />
+      <text x="24" y="22" fontSize="11" fill="#ffd93d">✦</text><text x="76" y="18" fontSize="9" fill="#ffd93d">✦</text>
+    </svg>
+  );
+}
 export function renderSong(it) {
   const h = hash(it.id);
+  const c = CARD_COLORS[h % CARD_COLORS.length];
+  const inst = instOf(it.inst);
   return (
-    <span className="song" style={{ "--c": CARD_COLORS[h % CARD_COLORS.length] }}>
-      <i className="song-note">{NOTE_GLYPHS[(h >> 4) % NOTE_GLYPHS.length]}</i>
+    <span className={`song inst-${inst.id}`} style={{ "--c": c }}>
+      <i className="song-float" style={{ animationDelay: `${(h % 10) / 10}s` }}>{NOTE_GLYPHS[(h >> 4) % NOTE_GLYPHS.length]}</i>
+      {inst.id === "piano" ? <PianoShape c={c} /> : inst.id === "xylo" ? <XyloShape c={c} /> : <BoxShape c={c} />}
       <b>{it.name || "이름 없는 친구"}</b>
-      <small>{instOf(it.inst).emoji} {instOf(it.inst).name} · {Math.round((it.dur || 0) / 1000)}초</small>
     </span>
   );
 }
