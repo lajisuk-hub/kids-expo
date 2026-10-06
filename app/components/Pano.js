@@ -43,23 +43,31 @@ const Pano = forwardRef(function Pano({ items, render, size, onPick, mineId, spe
     const fixed = items.filter((i) => i.anchor);
     const free = items.filter((i) => !i.anchor).sort((a, b) => (a.id < b.id ? -1 : 1));
     const rows = small ? 5 : 4;
-    const k = Math.max(1, Math.ceil(free.length / rows));
-    const cellW = world.W / k;
     const top = 0.17, bottom = small ? 0.78 : 0.82;
     const cellH = ((bottom - top) * world.H) / rows;
     const out = fixed.map((e) => {
       const im = world.imgs[Math.min(IMAGES.length - 1, e.anchor.img || 0)];
       return { ...e, wx: im.x + e.anchor.fx * im.w, wy: e.anchor.fy * world.H, ph: (hash(e.id) % 628) / 100, sp: 0.6 };
     });
-    free.forEach((e, i) => {
-      const h = hash(e.id);
-      const col = Math.floor(i / rows), row = i % rows;
-      const jx = ((h % 1000) / 1000 - 0.5) * Math.min(cellW * 0.8, 700);
-      const jy = (((h >> 10) % 1000) / 1000 - 0.5) * cellH * 0.5;
-      const stagger = row % 2 ? Math.min(cellW / 2, 160) : 0;
-      const wx = (col + 0.5) * cellW + stagger + jx;
-      out.push({ ...e, wx: ((wx % world.W) + world.W) % world.W, wy: top * world.H + (row + 0.5) * cellH + jy, ph: (h % 628) / 100, sp: 0.5 + ((h >> 5) % 50) / 100 });
-    });
+    // zone(그림 번호)이 있으면 그 그림 폭 안에서만, 없으면 파노라마 전체에 고르게 펼친다
+    const groups = new Map();
+    for (const e of free) { const z = e.zone == null ? "all" : e.zone; if (!groups.has(z)) groups.set(z, []); groups.get(z).push(e); }
+    for (const [z, list] of groups) {
+      const x0 = z === "all" ? 0 : world.imgs[z].x + world.ov * 0.5;
+      const span = z === "all" ? world.W : world.imgs[z].w - world.ov;
+      const k = Math.max(1, Math.ceil(list.length / rows));
+      const cellW = span / k;
+      list.forEach((e, i) => {
+        const h = hash(e.id);
+        const col = Math.floor(i / rows), row = i % rows;
+        const jx = ((h % 1000) / 1000 - 0.5) * Math.min(cellW * 0.8, 700);
+        const jy = (((h >> 10) % 1000) / 1000 - 0.5) * cellH * 0.5;
+        const stagger = row % 2 ? Math.min(cellW / 2, 160) : 0;
+        let wx = x0 + (col + 0.5) * cellW + stagger + jx;
+        if (z !== "all") wx = Math.min(x0 + span - 40, Math.max(x0 + 40, wx));
+        out.push({ ...e, wx: ((wx % world.W) + world.W) % world.W, wy: top * world.H + (row + 0.5) * cellH + jy, ph: (h % 628) / 100, sp: 0.5 + ((h >> 5) % 50) / 100 });
+      });
+    }
     return out;
   }, [items, world, small]);
 

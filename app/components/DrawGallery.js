@@ -16,6 +16,30 @@ export const MOODS = [
 ];
 export const moodOf = (id) => MOODS.find((m) => m.id === id);
 
+export function renderPic(it) {
+  return (
+    <span className="pic">
+      <img src={it.img} alt={it.name ? `${it.name}의 기분 그림` : "기분 그림"} loading="lazy" draggable={false} />
+      {it.mood && <i className="pic-mood">{moodOf(it.mood)?.emoji}</i>}
+    </span>
+  );
+}
+export function DrawViewer({ item, onClose }) {
+  return (
+    <div className="modal-bg" onClick={onClose}>
+      <div className="modal viewer" onClick={(e) => e.stopPropagation()}>
+        <button className="x" onClick={onClose}>✕</button>
+        <img className="viewer-img" src={item.img} alt="" />
+        <div className="viewer-cap">
+          {item.mood && <span className="mood-tag">{moodOf(item.mood)?.emoji} {moodOf(item.mood)?.label}</span>}
+          <b>{item.name || "이름 없는 친구"}</b>
+          <small>{new Date(item.at).toLocaleDateString("ko-KR")}</small>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function DrawGallery({ space }) {
   const { code, name } = space;
   const [items, setItems] = useState([]);
@@ -75,12 +99,7 @@ export default function DrawGallery({ space }) {
         size={size}
         mineId={mine}
         onPick={setPicked}
-        render={(it) => (
-          <span className="pic">
-            <img src={it.img} alt={it.name ? `${it.name}의 기분 그림` : "기분 그림"} loading="lazy" draggable={false} />
-            {it.mood && <i className="pic-mood">{moodOf(it.mood)?.emoji}</i>}
-          </span>
-        )}
+        render={renderPic}
       />
       <div className="g-title">
         <h1>오늘 나의 기분 그림 전시</h1>
@@ -89,19 +108,7 @@ export default function DrawGallery({ space }) {
       <div className="cta"><button onClick={() => setPad(true)}>🖍️ 내 기분 그리기</button></div>
       {toast && <div className="toast">{toast}</div>}
       {pad && <DrawPad code={code} onClose={() => setPad(false)} onSaved={onSaved} />}
-      {picked && (
-        <div className="modal-bg" onClick={() => setPicked(null)}>
-          <div className="modal viewer" onClick={(e) => e.stopPropagation()}>
-            <button className="x" onClick={() => setPicked(null)}>✕</button>
-            <img className="viewer-img" src={picked.img} alt="" />
-            <div className="viewer-cap">
-              {picked.mood && <span className="mood-tag">{moodOf(picked.mood)?.emoji} {moodOf(picked.mood)?.label}</span>}
-              <b>{picked.name || "이름 없는 친구"}</b>
-              <small>{new Date(picked.at).toLocaleDateString("ko-KR")}</small>
-            </div>
-          </div>
-        </div>
-      )}
+      {picked && <DrawViewer item={picked} onClose={() => setPicked(null)} />}
     </main>
   );
 }

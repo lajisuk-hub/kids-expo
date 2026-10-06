@@ -7,10 +7,21 @@ import Pano from "./Pano";
 import TopBar from "./TopBar";
 import Piano from "./Piano";
 
-const NOTE_GLYPHS = ["♪", "♫", "♩", "♬"];
-const CARD_COLORS = ["#ff6b6b", "#ff9f43", "#ffd93d", "#6bcb77", "#4d96ff", "#845ec2", "#ff6fb5"];
-const hash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
-const instOf = (id) => INSTRUMENTS.find((i) => i.id === id) || INSTRUMENTS[0];
+export const NOTE_GLYPHS = ["♪", "♫", "♩", "♬"];
+export const CARD_COLORS = ["#ff6b6b", "#ff9f43", "#ffd93d", "#6bcb77", "#4d96ff", "#845ec2", "#ff6fb5"];
+export const hash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+export const instOf = (id) => INSTRUMENTS.find((i) => i.id === id) || INSTRUMENTS[0];
+
+export function renderSong(it) {
+  const h = hash(it.id);
+  return (
+    <span className="song" style={{ "--c": CARD_COLORS[h % CARD_COLORS.length] }}>
+      <i className="song-note">{NOTE_GLYPHS[(h >> 4) % NOTE_GLYPHS.length]}</i>
+      <b>{it.name || "이름 없는 친구"}</b>
+      <small>{instOf(it.inst).emoji} {instOf(it.inst).name} · {Math.round((it.dur || 0) / 1000)}초</small>
+    </span>
+  );
+}
 
 export default function MusicGallery({ space }) {
   const { code, name } = space;
@@ -59,16 +70,7 @@ export default function MusicGallery({ space }) {
         size={size}
         mineId={mine}
         onPick={setPicked}
-        render={(it) => {
-          const h = hash(it.id);
-          return (
-            <span className="song" style={{ "--c": CARD_COLORS[h % CARD_COLORS.length] }}>
-              <i className="song-note">{NOTE_GLYPHS[(h >> 4) % NOTE_GLYPHS.length]}</i>
-              <b>{it.name || "이름 없는 친구"}</b>
-              <small>{instOf(it.inst).emoji} {instOf(it.inst).name} · {Math.round((it.dur || 0) / 1000)}초</small>
-            </span>
-          );
-        }}
+        render={renderSong}
       />
       <div className="g-title">
         <h1>내가 만든 노래 전시</h1>
@@ -82,7 +84,7 @@ export default function MusicGallery({ space }) {
   );
 }
 
-function SongPlayer({ item, onClose }) {
+export function SongPlayer({ item, onClose }) {
   const [playing, setPlaying] = useState(false);
   const [cur, setCur] = useState(null);
   const stopRef = useRef(null);
