@@ -60,6 +60,7 @@ export default function Lobby({ space }) {
     <main className="lobby-pano">
       <Pano
         ref={pano}
+        startImg={1}
         items={items}
         size={size}
         speed={30}
