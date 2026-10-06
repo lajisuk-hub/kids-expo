@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL("https://kids-expo.vercel.app"),
+  metadataBase: new URL("https://kids-expo-tau.vercel.app"),
   title: "우리 어린이집 온라인 전시회",
   description: "체험 전시·그림 전시·음악 전시, 세 가지 전시를 휴대폰으로 즐기는 어린이집 온라인 전시회예요.",
   openGraph: {
