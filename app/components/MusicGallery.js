@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { loadItems } from "../../lib/supabase";
 import { INSTRUMENTS, playSong, NAME_OF } from "../../lib/synth";
-import Floaty from "./Floaty";
+import Pano from "./Pano";
 import TopBar from "./TopBar";
 import Piano from "./Piano";
 
@@ -21,6 +21,7 @@ export default function MusicGallery({ space }) {
   const [toast, setToast] = useState("");
   const [small, setSmall] = useState(false);
   const since = useRef(null);
+  const pano = useRef(null);
 
   useEffect(() => {
     const on = () => setSmall(window.innerWidth < 700);
@@ -43,15 +44,17 @@ export default function MusicGallery({ space }) {
   const size = small ? (n > 30 ? 92 : 112) : n > 40 ? 116 : 150;
 
   const onSaved = (item) => {
-    setPiano(false); merge([item]); setMine(item.id);
+    setPiano(false); merge([item]); setMine(item.id); setTimeout(() => pano.current?.goTo(item.id), 80);
     setToast("내 노래가 전시장에 떠올랐어요! 🎉"); setTimeout(() => setToast(""), 3500);
   };
 
   return (
     <main className="gallery music-g">
-      <div className="g-bg" style={{ backgroundImage: "url(/ch-music.jpg)" }} />
       <TopBar code={code} org={name} title="음악 전시" color="#6bcb77" />
-      <Floaty
+      <Pano
+        ref={pano}
+        startImg={2}
+        paused={!!(piano || picked)}
         items={visible}
         size={size}
         mineId={mine}

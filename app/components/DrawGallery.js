@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { loadItems } from "../../lib/supabase";
-import Floaty from "./Floaty";
+import Pano from "./Pano";
 import TopBar from "./TopBar";
 import DrawPad from "./DrawPad";
 
@@ -25,6 +25,7 @@ export default function DrawGallery({ space }) {
   const [toast, setToast] = useState("");
   const [small, setSmall] = useState(false);
   const since = useRef(null);
+  const pano = useRef(null);
 
   useEffect(() => {
     const on = () => setSmall(window.innerWidth < 700);
@@ -58,15 +59,18 @@ export default function DrawGallery({ space }) {
     setPad(false);
     merge([item]);
     setMine(item.id);
+    setTimeout(() => pano.current?.goTo(item.id), 80);
     setToast("내 그림이 전시장에 떠올랐어요! 🎉");
     setTimeout(() => setToast(""), 3500);
   };
 
   return (
     <main className="gallery draw-g">
-      <div className="g-bg" style={{ backgroundImage: "url(/ch-draw.jpg)" }} />
       <TopBar code={code} org={name} title="그림 전시" color="#4d96ff" />
-      <Floaty
+      <Pano
+        ref={pano}
+        startImg={1}
+        paused={!!(pad || picked)}
         items={visible}
         size={size}
         mineId={mine}

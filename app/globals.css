@@ -210,3 +210,50 @@ table.list th { color: var(--muted); font-weight: 600; font-size: 12px; }
   .kbd { height: 130px; }
   .wk span { font-size: 15px; }
 }
+
+/* ── 파노라마 전시장 (원장님 그림 3장 이어 붙임) ───────────── */
+.stage { position: fixed; inset: 0; overflow: hidden; background: #f3e4c8; touch-action: none; user-select: none; -webkit-user-select: none; }
+.stage.grab { cursor: grab; }
+.stage.grabbing { cursor: grabbing; }
+.strip { position: absolute; top: 0; left: 0; height: 100%; will-change: transform; }
+.strip img { position: absolute; top: 0; height: 100%; width: auto; pointer-events: none; -webkit-user-drag: none; }
+.strip img.fade { -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--ov)); mask-image: linear-gradient(to right, transparent, #000 var(--ov)); }
+.items { position: absolute; inset: 0; pointer-events: none; }
+.it { position: absolute; left: 0; top: 0; pointer-events: auto; will-change: transform; border: 0; background: transparent; padding: 0; transform-origin: center; touch-action: none; }
+.it.launch { animation: launch 1.4s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+.it.mine .pic, .it.mine .song { box-shadow: 0 0 0 5px var(--sun), 0 12px 30px rgba(60,40,20,.3); }
+.lobby-pano .top { position: fixed; left: 50%; top: 14px; transform: translateX(-50%); z-index: 5; text-align: center; pointer-events: none; width: 94vw; }
+.lobby-pano .top .org { display: inline-block; background: rgba(58,45,42,.88); color: #ffe9b8; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; }
+.lobby-pano .top h1 { margin: 4px 0 0; font-family: var(--font-title); font-weight: 400; font-size: 34px; color: #fff; text-shadow: 0 2px 10px rgba(40,20,0,.75), 0 0 2px rgba(0,0,0,.6); letter-spacing: 1px; }
+.lobby-pano .top p { margin: 4px 0 0; font-size: 13px; color: #fff; text-shadow: 0 1px 6px rgba(40,20,0,.9); }
+.door { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 230px; padding: 16px 16px 14px; background: rgba(255,253,247,.94); border: 4px solid var(--c); border-radius: 26px; box-shadow: 0 16px 40px rgba(40,20,0,.35), inset 0 0 0 3px #fff; text-align: center; }
+.door-emoji { font-style: normal; font-size: 46px; line-height: 1; }
+.door-en { font-size: 11px; letter-spacing: .3em; color: var(--c); font-weight: 800; margin-top: 4px; }
+.door b { font-family: var(--font-title); font-weight: 400; font-size: 28px; color: var(--ink); line-height: 1.1; }
+.door small { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.door-go { margin-top: 8px; background: var(--c); color: #fff; font-weight: 800; border-radius: 999px; padding: 9px 18px; font-size: 14px; box-shadow: 0 5px 0 color-mix(in srgb, var(--c) 70%, #000 30%); }
+.door.focus { animation: focusPulse 1.3s ease-in-out 2; }
+@keyframes focusPulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 10px rgba(255,217,61,.55), 0 16px 40px rgba(40,20,0,.35); } }
+.it.anchor:active .door { transform: scale(.97); }
+.chnav { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 6; display: flex; gap: 8px; background: rgba(255,253,247,.92); padding: 8px; border-radius: 999px; box-shadow: 0 10px 30px rgba(40,20,0,.3); backdrop-filter: blur(6px); white-space: nowrap; }
+.chnav button { border: 2px solid var(--c); background: #fff; color: var(--c); font-weight: 800; font-size: 14px; border-radius: 999px; padding: 9px 14px; }
+.chnav button:active { background: var(--c); color: #fff; }
+.adminlink { position: fixed; right: 12px; top: 12px; z-index: 6; font-size: 12px; color: #fff; text-decoration: none; background: rgba(58,45,42,.6); padding: 6px 10px; border-radius: 999px; }
+@media (max-width: 640px) {
+  .lobby-pano .top h1 { font-size: 28px; }
+  .door { width: 196px; padding: 12px 12px 12px; }
+  .door b { font-size: 24px; }
+  .door-emoji { font-size: 38px; }
+  .chnav button { font-size: 13px; padding: 8px 11px; }
+}
+
+/* ── 전시할까요? 확인 팝업 ─────────────────── */
+.ask-bg { z-index: 45; }
+.modal.ask { max-width: 420px; text-align: center; }
+.ask-img { width: 100%; max-width: 300px; aspect-ratio: 1; border-radius: 18px; border: 3px solid #ffe3b3; background: #fffdf7; display: block; margin: 4px auto; }
+.ask-cap { margin: 8px 0 0; font-size: 15px; }
+.ask-cap b { font-family: var(--font-title); font-weight: 400; font-size: 20px; margin-left: 6px; }
+.ask-notes { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin: 6px 0 12px; }
+.ask-notes span { font-family: var(--font-title); font-size: 14px; background: #f3eadb; color: #7a5a3a; border-radius: 8px; padding: 3px 7px; }
+.ask-notes span.on { background: var(--mint); color: #fff; }
+.modal.ask .row .btn { font-size: 15px; padding: 13px 10px; }

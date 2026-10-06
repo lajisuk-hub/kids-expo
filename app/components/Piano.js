@@ -124,19 +124,28 @@ export default function Piano({ code, onClose, onSaved }) {
         </div>
         <div className="bar"><i style={{ width: `${Math.min(100, (elapsed / MAX_MS) * 100)}%` }} /></div>
 
-        {done && (
-          <>
-            <div className="row" style={{ marginTop: 10 }}>
-              <button className="btn ghost" onClick={preview} disabled={previewing}>{previewing ? "재생 중…" : "▶ 들어 보기"}</button>
+        {err && !done && <div className="err">{err}</div>}
+      </div>
+      {done && (
+        <div className="modal-bg ask-bg">
+          <div className="modal ask">
+            <h2>이 노래를 전시할까요?</h2>
+            <p className="sub">{INSTRUMENTS.find((i) => i.id === inst)?.emoji} {INSTRUMENTS.find((i) => i.id === inst)?.name} · {done.notes.length}음 · {sec(done.dur)}초. 전시하면 전시장에 떠다니고 다른 친구들도 눌러서 들을 수 있어요.</p>
+            <div className="ask-notes">
+              {done.notes.slice(0, 32).map((nt, i) => <span key={i} className={lit === nt.n && previewing ? "on" : ""}>{WHITE.find((w) => w.n === nt.n)?.label || "♯"}</span>)}
+              {done.notes.length > 32 && <span>…</span>}
             </div>
+            <button className="btn ghost" onClick={preview} disabled={previewing}>{previewing ? "재생 중…" : "▶ 들어 보기"}</button>
             <label className="f">이름 (안 적어도 돼요)</label>
             <input className="inp" value={name} onChange={(e) => setName(e.target.value)} placeholder="예: 하늘" maxLength={20} />
-          </>
-        )}
-        {err && <div className="err">{err}</div>}
-        <div style={{ height: 12 }} />
-        <button className="btn big" onClick={save} disabled={!done || busy}>{busy ? "전시하는 중…" : "🎉 전시하기!"}</button>
-      </div>
+            {err && <div className="err">{err}</div>}
+            <div className="row" style={{ marginTop: 12 }}>
+              <button className="btn ghost" onClick={() => { setDone(null); setErr(""); }} disabled={busy}>🎹 다시 녹음</button>
+              <button className="btn" onClick={save} disabled={busy}>{busy ? "전시하는 중…" : "🎉 네, 전시해요!"}</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

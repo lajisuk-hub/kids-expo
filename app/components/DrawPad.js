@@ -21,6 +21,7 @@ export default function DrawPad({ code, onClose, onSaved }) {
   const [err, setErr] = useState("");
   const [canUndo, setCanUndo] = useState(false);
   const [S, setS] = useState(360);
+  const [ask, setAsk] = useState(null); // 전시할까요? 미리보기 그림(dataURL)
 
   // 캔버스 크기: 화면 폭에 맞춰 정사각형
   useEffect(() => {
@@ -87,9 +88,13 @@ export default function DrawPad({ code, onClose, onSaved }) {
     drawGuide();
   };
 
-  const save = async () => {
+  const finish = () => {
     setErr("");
     if (undo.current.length === 0) return setErr("아직 아무것도 안 그렸어요. 얼굴에 오늘 기분을 그려 주세요!");
+    setAsk(cvs.current.toDataURL("image/png"));
+  };
+  const save = async () => {
+    setErr("");
     setBusy(true);
     try {
       const blob = await new Promise((res) => cvs.current.toBlob(res, "image/png"));
@@ -138,8 +143,23 @@ export default function DrawPad({ code, onClose, onSaved }) {
         <input className="inp" value={name} onChange={(e) => setName(e.target.value)} placeholder="예: 하늘" maxLength={20} />
         {err && <div className="err">{err}</div>}
         <div style={{ height: 12 }} />
-        <button className="btn big" onClick={save} disabled={busy}>{busy ? "전시하는 중…" : "🎉 전시하기!"}</button>
+        <button className="btn big" onClick={finish} disabled={busy}>✅ 다 그렸어요!</button>
       </div>
+      {ask && (
+        <div className="modal-bg ask-bg">
+          <div className="modal ask">
+            <h2>이 그림을 전시할까요?</h2>
+            <p className="sub">전시하면 전시장에 둥둥 떠다니고, 다른 친구들도 눌러서 볼 수 있어요.</p>
+            <img className="ask-img" src={ask} alt="내가 그린 기분 그림" />
+            {(name || mood) && <p className="ask-cap">{mood && <span className="mood-tag">{MOODS.find((m) => m.id === mood)?.emoji} {MOODS.find((m) => m.id === mood)?.label}</span>} <b>{name}</b></p>}
+            {err && <div className="err">{err}</div>}
+            <div className="row" style={{ marginTop: 12 }}>
+              <button className="btn ghost" onClick={() => setAsk(null)} disabled={busy}>✏️ 다시 그릴래요</button>
+              <button className="btn" onClick={save} disabled={busy}>{busy ? "전시하는 중…" : "🎉 네, 전시해요!"}</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
