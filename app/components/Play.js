@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { DEFAULT_VIDEO, HUG_VIDEO } from "../../lib/supabase";
-import TopBar from "./TopBar";
+import TopBar, { Ticker } from "./TopBar";
 
 // 유튜브 주소(youtu.be/ID, watch?v=ID, embed/ID, shorts/ID)에서 ID 뽑기
 export function youtubeId(url = "") {
@@ -63,6 +63,7 @@ export default function Play({ space }) {
   return (
     <main className="play">
       <TopBar code={code} org={name} title="체험 전시" color="#ff6b6b" />
+      <Ticker />
       <div className="play-wrap">
         <div className="play-card">
           <h2>따라 해 보세요 <small>FOLLOW THE MOTION</small></h2>

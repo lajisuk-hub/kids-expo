@@ -302,3 +302,26 @@ iframe.play-video { border: 0; }
 .guide-tips { display: grid; gap: 4px; margin: 6px 0 12px; font-size: 12.5px; color: var(--muted); text-align: center; }
 .helplink { position: fixed; right: 92px; top: 12px; z-index: 6; font-size: 12px; color: #fff; background: rgba(58,45,42,.6); padding: 6px 10px; border-radius: 999px; border: 0; }
 @media (max-width: 640px) { .helplink { right: 88px; } }
+
+/* ── 제작·배포 기관 표시 ───────────────────────── */
+.logos { display: flex; align-items: center; justify-content: center; gap: 22px; margin: 4px auto 14px; background: #fff; border-radius: 999px; padding: 10px 26px; width: max-content; max-width: 94vw; box-shadow: 0 6px 20px rgba(120,80,50,.1); }
+.logos img { height: 44px; width: auto; }
+.logos img[alt="대구광역시 수성구"] { height: 52px; }
+.logo-sep { width: 1px; height: 36px; background: var(--line); }
+.notice { margin: 10px auto 12px; max-width: 560px; background: #fff; border: 3px solid var(--sun); border-radius: 18px; padding: 14px 18px; font-size: 17px; line-height: 1.55; color: var(--ink); box-shadow: 0 8px 24px rgba(120,80,50,.1); }
+.notice b { font-size: 20px; color: #2f6db5; }
+.video-btn { max-width: 560px; margin: 4px auto 0; display: flex; flex-direction: column; gap: 2px; font-size: 22px; padding: 16px 20px; background: linear-gradient(180deg, #ff7b7b, #e8503f); font-family: var(--font-title); font-weight: 400; }
+.video-btn small { font-family: var(--font-ui); font-size: 13px; font-weight: 500; opacity: .92; }
+.modal.vmodal { max-width: 900px; }
+.vmodal-video { width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 16px; display: block; }
+.home-foot { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 22px auto 0; font-size: 13px; color: var(--muted); }
+.home-foot img { height: 26px; }
+.ticker { position: fixed; left: 0; right: 0; bottom: 0; z-index: 7; height: 26px; background: rgba(58,45,42,.72); color: #ffe9b8; font-size: 12.5px; line-height: 26px; overflow: hidden; pointer-events: none; }
+.ticker-in { display: inline-block; white-space: nowrap; animation: tick 40s linear infinite; }
+@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.lobby-pano .chtabs { bottom: 26px; }
+.lobby-pano .count { bottom: 144px; }
+.gallery .cta { bottom: 44px; }
+.play { padding-bottom: 60px; }
+@media (max-width: 640px) { .logos img { height: 34px; } .logos img[alt="대구광역시 수성구"] { height: 40px; } .notice { font-size: 15px; } .notice b { font-size: 17px; } .video-btn { font-size: 19px; } .lobby-pano .count { bottom: 150px; } }
+@media (min-width: 700px) { .lobby-pano .chtabs { bottom: 40px; } .lobby-pano .count { bottom: 156px; } }

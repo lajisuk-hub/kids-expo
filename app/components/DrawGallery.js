@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { loadItems } from "../../lib/supabase";
 import Pano from "./Pano";
-import TopBar from "./TopBar";
+import TopBar, { Ticker } from "./TopBar";
 import DrawPad from "./DrawPad";
 
 export const MOODS = [
@@ -91,6 +91,7 @@ export default function DrawGallery({ space }) {
   return (
     <main className="gallery draw-g">
       <TopBar code={code} org={name} title="그림 전시" color="#4d96ff" />
+      <Ticker />
       <Pano
         ref={pano}
         startImg={1}

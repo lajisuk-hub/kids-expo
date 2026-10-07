@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { loadItems } from "../../lib/supabase";
 import { INSTRUMENTS, playSong, NAME_OF } from "../../lib/synth";
 import Pano from "./Pano";
-import TopBar from "./TopBar";
+import TopBar, { Ticker } from "./TopBar";
 import Piano from "./Piano";
 
 export const NOTE_GLYPHS = ["♪", "♫", "♩", "♬"];
@@ -104,6 +104,7 @@ export default function MusicGallery({ space }) {
   return (
     <main className="gallery music-g">
       <TopBar code={code} org={name} title="음악 전시" color="#6bcb77" />
+      <Ticker />
       <Pano
         ref={pano}
         startImg={2}

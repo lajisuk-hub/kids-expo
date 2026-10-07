@@ -14,8 +14,13 @@ export default function Home() {
   const [origin, setOrigin] = useState("");
   const [qr, setQr] = useState("");
   const [copied, setCopied] = useState("");
+  const [video, setVideo] = useState(false); // 사용법 영상 팝업
 
   useEffect(() => setOrigin(window.location.origin), []);
+  // 사용법 영상: 이 브라우저에서 처음 열 때 자동으로 한 번 (단추로 언제든 다시)
+  useEffect(() => {
+    try { if (!sessionStorage.getItem("ex-home-video")) { setVideo(true); sessionStorage.setItem("ex-home-video", "1"); } } catch { setVideo(true); }
+  }, []);
   useEffect(() => {
     if (!made) return;
     QRCode.toDataURL(`${origin}/e/${made.code}`, { width: 400, margin: 1, color: { dark: "#3a2d2a" } }).then(setQr).catch(() => {});
@@ -47,10 +52,19 @@ export default function Home() {
 
   return (
     <main className="page">
+      <div className="logos">
+        <img src="/logo-suseong.png" alt="대구광역시 수성구" />
+        <span className="logo-sep" />
+        <img src="/logo-childcare.png" alt="수성구육아종합지원센터" />
+      </div>
       <div className="hero">
         <div className="hero-ic">🎪</div>
         <h1>우리 어린이집 온라인 전시회</h1>
+        <div className="notice">
+          <b>수성구청 · 수성구육아종합지원센터</b>가 제작하여<br />관내 어린이집에 배부하는 온라인 전시회 자료입니다.
+        </div>
         <p>체험 전시 · 그림 전시 · 음악 전시, 세 가지 전시를 휴대폰으로 즐겨요. 어린이집마다 따로 전시회를 만들어 쓰기 때문에 다른 곳과 섞이지 않아요.</p>
+        <button className="btn video-btn" onClick={() => setVideo(true)}>📺 사용법 영상 보기 <small>1분 38초 · 만들기부터 학부모 배부까지</small></button>
       </div>
 
       {made ? (
@@ -68,7 +82,6 @@ export default function Home() {
         <div className="card">
           <h2>새 전시회 만들기 (기관용)</h2>
           <p className="sub">원장님·선생님이 한 번만 만들면 됩니다. 만들고 나면 학부모께 보낼 주소가 나와요.</p>
-          <a className="btn sm ghost" href="https://pgywpdodatjfpivxmymn.supabase.co/storage/v1/object/public/suseong-hub/expo/guide-v1.mp4" target="_blank" rel="noreferrer" style={{ textDecoration: "none", marginBottom: 6 }}>📺 사용법 영상 보기 (1분 38초)</a>
           <label className="f">어린이집 이름</label>
           <input className="inp" value={name} onChange={(e) => setName(e.target.value)} placeholder="예: 해오라기어린이집" maxLength={40} />
           <label className="f">관리 비밀번호 (숫자 4~8자리)</label>
@@ -88,6 +101,18 @@ export default function Home() {
         </div>
       </div>
 
+      {video && (
+        <div className="modal-bg" onClick={() => setVideo(false)}>
+          <div className="modal vmodal" onClick={(e) => e.stopPropagation()}>
+            <button className="x" onClick={() => setVideo(false)} aria-label="닫기">✕</button>
+            <h2>📺 사용법 영상</h2>
+            <p className="sub">전시회 만들기 → 주소 2개 저장 → 학부모께 배부, 1분 38초예요.</p>
+            <video className="vmodal-video" src="https://pgywpdodatjfpivxmymn.supabase.co/storage/v1/object/public/suseong-hub/expo/guide-v1.mp4" controls autoPlay playsInline />
+            <button className="btn" onClick={() => setVideo(false)} style={{ marginTop: 12 }}>닫고 전시회 만들기</button>
+          </div>
+        </div>
+      )}
+
       <div className="card soft">
         <h2>전시회에는 이런 게 있어요</h2>
         <ul className="feat">
@@ -96,6 +121,10 @@ export default function Home() {
           <li><span>🎵</span><div><b>음악 전시</b><br />피아노·실로폰·오르골로 30초 노래를 만들어 전시해요</div></li>
         </ul>
       </div>
+      <footer className="home-foot">
+        <img src="/logo-childcare.png" alt="수성구육아종합지원센터" />
+        <span>본 자료는 수성구청과 수성구육아종합지원센터가 제작하여 배포하였습니다.</span>
+      </footer>
     </main>
   );
 }

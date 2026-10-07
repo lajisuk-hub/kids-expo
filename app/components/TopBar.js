@@ -13,3 +13,11 @@ export default function TopBar({ code, org, title, color = "#ff6b6b", right = nu
     </div>
   );
 }
+
+// 전시장 맨 아래 옆으로 흐르는 작은 안내 글
+export function Ticker() {
+  const t = "수성구육아종합지원센터에서 제작하여 배포하였습니다  ·  수성구청 × 수성구육아종합지원센터  ·  ";
+  return (
+    <div className="ticker" aria-hidden="true"><div className="ticker-in"><span>{t}{t}{t}{t}</span></div></div>
+  );
+}

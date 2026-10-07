@@ -6,6 +6,7 @@ import { loadItems } from "../../lib/supabase";
 import { renderPic, DrawViewer } from "./DrawGallery";
 import { renderSong, SongPlayer } from "./MusicGallery";
 import Guide from "./Guide";
+import { Ticker } from "./TopBar";
 
 // 전시 3개: 아래 탭 단추 (작품이 많아져도 묻히지 않게 파노라마 위에는 띄우지 않는다)
 export const CHAPTERS = [
@@ -91,6 +92,7 @@ export default function Lobby({ space }) {
       </nav>
       <button className="helplink" onClick={() => setGuide(true)}>❓ 사용법</button>
       <a className="adminlink" href={`/e/${code}/admin`}>기관 관리</a>
+      <Ticker />
       {guide && <Guide org={name} onClose={() => setGuide(false)} />}
       {picked?.kind === "d" && <DrawViewer item={picked.item} onClose={() => setPicked(null)} />}
       {picked?.kind === "m" && <SongPlayer item={picked.item} onClose={() => setPicked(null)} />}
