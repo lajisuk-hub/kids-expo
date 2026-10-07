@@ -68,6 +68,7 @@ export default function Home() {
         <div className="card">
           <h2>새 전시회 만들기 (기관용)</h2>
           <p className="sub">원장님·선생님이 한 번만 만들면 됩니다. 만들고 나면 학부모께 보낼 주소가 나와요.</p>
+          <a className="btn sm ghost" href="https://pgywpdodatjfpivxmymn.supabase.co/storage/v1/object/public/suseong-hub/expo/guide-v1.mp4" target="_blank" rel="noreferrer" style={{ textDecoration: "none", marginBottom: 6 }}>📺 사용법 영상 보기 (1분 38초)</a>
           <label className="f">어린이집 이름</label>
           <input className="inp" value={name} onChange={(e) => setName(e.target.value)} placeholder="예: 해오라기어린이집" maxLength={40} />
           <label className="f">관리 비밀번호 (숫자 4~8자리)</label>
