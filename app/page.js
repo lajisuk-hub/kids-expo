@@ -67,15 +67,13 @@ export default function Home() {
   return (
     <main className="page">
       <div className="logos">
-        <img src="/logo-suseong.png" alt="대구광역시 수성구" />
-        <span className="logo-sep" />
         <img src="/logo-childcare.png" alt="수성구육아종합지원센터" />
       </div>
       <div className="hero">
         <div className="hero-ic">🎪</div>
         <h1>우리 어린이집 온라인 전시회</h1>
         <div className="notice">
-          <b>수성구청 · 수성구육아종합지원센터</b>가 제작하여<br />관내 어린이집에 배부하는 온라인 전시회 자료입니다.
+          <b>수성구육아종합지원센터</b>가 제작하여<br />관내 어린이집에 배부하는 온라인 전시회 자료입니다.
         </div>
         <p>체험 전시 · 그림 전시 · 음악 전시, 세 가지 전시를 휴대폰으로 즐겨요. 어린이집마다 따로 전시회를 만들어 쓰기 때문에 다른 곳과 섞이지 않아요.</p>
         <button className="btn video-btn" onClick={() => setVideo(true)}>📺 사용법 영상 보기 <small>1분 38초 · 만들기부터 학부모 배부까지</small></button>
@@ -143,7 +141,7 @@ export default function Home() {
       </div>
       <footer className="home-foot">
         <img src="/logo-childcare.png" alt="수성구육아종합지원센터" />
-        <span>본 자료는 수성구청과 수성구육아종합지원센터가 제작하여 배포하였습니다.</span>
+        <span>본 자료는 수성구육아종합지원센터가 제작하여 배포하였습니다.</span>
       </footer>
     </main>
   );

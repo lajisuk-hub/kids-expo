@@ -306,7 +306,7 @@ iframe.play-video { border: 0; }
 
 /* ── 제작·배포 기관 표시 ───────────────────────── */
 .logos { display: flex; align-items: center; justify-content: center; gap: 22px; margin: 4px auto 14px; background: #fff; border-radius: 999px; padding: 10px 26px; width: max-content; max-width: 94vw; box-shadow: 0 6px 20px rgba(120,80,50,.1); }
-.logos img { height: 44px; width: auto; }
+.logos img { height: 52px; width: auto; }
 .logos img[alt="대구광역시 수성구"] { height: 52px; }
 .logo-sep { width: 1px; height: 36px; background: var(--line); }
 .notice { margin: 10px auto 12px; max-width: 560px; background: #fff; border: 3px solid var(--sun); border-radius: 18px; padding: 14px 18px; font-size: 17px; line-height: 1.55; color: var(--ink); box-shadow: 0 8px 24px rgba(120,80,50,.1); }
