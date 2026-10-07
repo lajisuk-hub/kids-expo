@@ -325,3 +325,11 @@ iframe.play-video { border: 0; }
 .play { padding-bottom: 60px; }
 @media (max-width: 640px) { .logos img { height: 34px; } .logos img[alt="대구광역시 수성구"] { height: 40px; } .notice { font-size: 15px; } .notice b { font-size: 17px; } .video-btn { font-size: 19px; } .lobby-pano .count { bottom: 150px; } }
 @media (min-width: 700px) { .lobby-pano .chtabs { bottom: 40px; } .lobby-pano .count { bottom: 156px; } }
+
+/* ── 주소 한 번에 복사 ─────────────────────────── */
+.allcopy { margin-top: 14px; background: #eef6ff; border: 3px solid #4d96ff; border-radius: 18px; padding: 14px 14px 12px; }
+.allcopy > b { display: block; font-family: var(--font-title); font-weight: 400; font-size: 21px; color: #2f6db5; margin-bottom: 4px; }
+.allcopy p { margin: 0 0 10px; font-size: 14px; line-height: 1.5; color: var(--ink); }
+.allcopy p u { text-decoration: none; background: #fff1c9; padding: 1px 6px; border-radius: 6px; font-weight: 700; }
+.allcopy pre { margin: 0 0 10px; white-space: pre-wrap; word-break: break-all; font-family: var(--font-ui); font-size: 13.5px; line-height: 1.55; background: #fff; border: 1px solid #cfe0f7; border-radius: 12px; padding: 12px; color: var(--ink); }
+.allcopy .btn.big { background: #2f6db5; box-shadow: 0 6px 0 rgba(30,70,130,.35); font-size: 19px; }

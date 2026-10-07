@@ -44,6 +44,21 @@ export default function Home() {
     try { await navigator.clipboard.writeText(text); setCopied(label); setTimeout(() => setCopied(""), 2000); }
     catch { prompt("아래 주소를 길게 눌러 복사하세요", text); }
   };
+  const summary = made
+    ? [
+        `🎪 ${name.trim() || "우리 어린이집"} 온라인 전시회`,
+        ``,
+        `① 학부모 링크 (카톡·QR로 보내는 주소)`,
+        `${origin}/e/${made.code}`,
+        ``,
+        `② 기관 수정 링크 (비밀번호 필요 · 학부모께 보내지 마세요)`,
+        `${origin}/e/${made.code}/admin`,
+        ``,
+        `전시회 코드: ${made.code}`,
+        `관리 비밀번호: (만들 때 정한 숫자)`,
+      ].join("
+")
+    : "";
   const go = () => {
     const c = goCode.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
     if (c.length < 6) return;
@@ -75,6 +90,12 @@ export default function Home() {
           <LinkBox label="① 학부모 링크 (카톡·QR로 보내는 주소)" url={`${origin}/e/${made.code}`} copy={copy} copied={copied} />
           <LinkBox label="② 기관 수정 링크 (비밀번호 필요 · 이름 수정, 작품 숨기기)" url={`${origin}/e/${made.code}/admin`} copy={copy} copied={copied} />
           <div className="warn">전시회 코드는 <b>{made.code}</b> 예요. 주소를 잃어버려도 이 첫 화면에서 코드를 넣으면 들어갈 수 있어요.</div>
+          <div className="allcopy">
+            <b>📋 한 번에 저장하기</b>
+            <p>아래 글을 통째로 복사해서 <u>지금 내 카톡(나에게 보내기)</u>에 붙여 두세요. 학부모께 보낼 땐 학부모 링크 줄만 보내면 돼요.</p>
+            <pre>{summary}</pre>
+            <button className="btn big" onClick={() => copy("all", summary)}>{copied === "all" ? "복사됐어요 ✓  이제 카톡에 붙여 넣으세요" : "📋 전체 복사하기"}</button>
+          </div>
           <div style={{ height: 12 }} />
           <a className="btn" href={`/e/${made.code}`} style={{ textDecoration: "none" }}>전시회 열어 보기 →</a>
         </div>
