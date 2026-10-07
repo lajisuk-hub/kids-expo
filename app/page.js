@@ -56,8 +56,7 @@ export default function Home() {
         ``,
         `전시회 코드: ${made.code}`,
         `관리 비밀번호: (만들 때 정한 숫자)`,
-      ].join("
-")
+      ].join(String.fromCharCode(10))
     : "";
   const go = () => {
     const c = goCode.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
