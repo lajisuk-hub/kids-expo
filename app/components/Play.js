@@ -31,6 +31,7 @@ export default function Play({ space }) {
   const holder = useRef(null);   // 유튜브 플레이어 자리
   const player = useRef(null);
   const hugRef = useRef(null);
+  const mainRef = useRef(null);  // mp4 영상
   const [phase, setPhase] = useState("video"); // video → hug(마무리) → done
 
   // 유튜브: 영상이 끝나면 우리 「안아주기」 마무리를 이어서 튼다
@@ -56,8 +57,8 @@ export default function Play({ space }) {
     if (b.requestFullscreen) b.requestFullscreen().catch(() => {});
     else if (hugRef.current?.webkitEnterFullscreen) hugRef.current.webkitEnterFullscreen();
   };
-  const startAll = () => { if (yt) player.current?.playVideo?.(); else hugRef.current?.play(); full(); };
-  const replay = () => { setPhase("video"); if (yt) { player.current?.seekTo?.(0); player.current?.playVideo?.(); } };
+  const startAll = () => { if (yt) player.current?.playVideo?.(); else mainRef.current?.play(); full(); };
+  const replay = () => { setPhase("video"); if (yt) { player.current?.seekTo?.(0); player.current?.playVideo?.(); } else if (mainRef.current) { mainRef.current.currentTime = 0; mainRef.current.play().catch(() => {}); } };
 
   return (
     <main className="play">
@@ -65,9 +66,9 @@ export default function Play({ space }) {
       <div className="play-wrap">
         <div className="play-card">
           <h2>따라 해 보세요 <small>FOLLOW THE MOTION</small></h2>
-          <p>화면 속 사람처럼 몸을 움직여 보세요. 자르기·타기·흔들기… 신호가 나오면 바로 따라 해요! 영상이 끝나면 <b>안아주기</b>가 이어져요.</p>
+          <p>화면 속 사람처럼 몸을 움직여 보세요. 손 흔들기부터 마지막 <b>안아주기</b>까지 11가지 동작, 1분 39초예요.{yt && " 영상이 끝나면 안아주기가 이어져요."}</p>
           <div ref={box} className={`play-box${phase !== "video" ? " hugging" : ""}`}>
-            {yt ? <div className="yt-wrap"><div ref={holder} /></div> : <video className="play-video" src={src} controls playsInline preload="metadata" poster="/ch-play.jpg" onEnded={() => setPhase("hug")} />}
+            {yt ? <div className="yt-wrap"><div ref={holder} /></div> : <video ref={mainRef} className="play-video" src={src} controls playsInline preload="metadata" poster="/ch-play.jpg" onEnded={() => setPhase("done")} />}
             <video
               ref={hugRef}
               className="play-video hug-video"
