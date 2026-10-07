@@ -121,7 +121,7 @@ export default function DrawPad({ code, onClose, onSaved }) {
       <div className="modal pad">
         <button className="x" onClick={onClose}>✕</button>
         <h2>오늘 나의 기분을 그림으로 표현해 줘요</h2>
-        <p className="sub">얼굴 밑그림 위에 눈·입·볼을 그려서 오늘 기분을 보여 주세요.</p>
+        <p className="sub">얼굴 밑그림 위에 눈·입·볼을 그려서 오늘 기분을 보여 주세요. <b>얼굴이 아니어도 괜찮아요!</b> 좋아하는 것, 오늘 있었던 일, 무엇이든 자유롭게 그려도 돼요. (회색 밑그림은 안내선이라 전시에는 안 나와요)</p>
         <div className="moods">
           {MOODS.map((m) => (
             <button key={m.id} className={`mood${mood === m.id ? " on" : ""}`} onClick={() => setMood(mood === m.id ? "" : m.id)}>
