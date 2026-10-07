@@ -5,6 +5,7 @@ import Pano from "./Pano";
 import { loadItems } from "../../lib/supabase";
 import { renderPic, DrawViewer } from "./DrawGallery";
 import { renderSong, SongPlayer } from "./MusicGallery";
+import Guide from "./Guide";
 
 // 전시 3개: 아래 탭 단추 (작품이 많아져도 묻히지 않게 파노라마 위에는 띄우지 않는다)
 export const CHAPTERS = [
@@ -19,9 +20,14 @@ export default function Lobby({ space }) {
   const [draws, setDraws] = useState([]);
   const [songs, setSongs] = useState([]);
   const [picked, setPicked] = useState(null); // {kind, item}
+  const [guide, setGuide] = useState(false);
   const [small, setSmall] = useState(false);
   const sinceD = useRef(null), sinceM = useRef(null);
 
+  // 사용법 팝업: 이 브라우저에서 처음 열 때 한 번 (❓ 단추로 다시)
+  useEffect(() => {
+    try { const k = `ex-guide-${code}`; if (!sessionStorage.getItem(k)) { setGuide(true); sessionStorage.setItem(k, "1"); } } catch { setGuide(true); }
+  }, [code]);
   useEffect(() => {
     const on = () => setSmall(window.innerWidth < 700);
     on(); window.addEventListener("resize", on); return () => window.removeEventListener("resize", on);
@@ -64,7 +70,7 @@ export default function Lobby({ space }) {
         items={items}
         size={size}
         speed={30}
-        paused={!!picked}
+        paused={!!picked || guide}
         onPick={onPick}
         render={(p) => (p.kind === "d" ? renderPic(p) : renderSong(p))}
       />
@@ -83,7 +89,9 @@ export default function Lobby({ space }) {
           </button>
         ))}
       </nav>
+      <button className="helplink" onClick={() => setGuide(true)}>❓ 사용법</button>
       <a className="adminlink" href={`/e/${code}/admin`}>기관 관리</a>
+      {guide && <Guide org={name} onClose={() => setGuide(false)} />}
       {picked?.kind === "d" && <DrawViewer item={picked.item} onClose={() => setPicked(null)} />}
       {picked?.kind === "m" && <SongPlayer item={picked.item} onClose={() => setPicked(null)} />}
     </main>
