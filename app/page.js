@@ -73,10 +73,14 @@ export default function Home() {
         <div className="hero-ic">🎪</div>
         <h1>우리 어린이집 온라인 전시회</h1>
         <div className="notice">
-          <b>수성구육아종합지원센터</b>가 제작하여<br />관내 어린이집에 배부하는 온라인 전시회 자료입니다.
+          2026년 「AI 보육을 디자인하다」 성과보고회 참석자를 위해 <b>수성구 육아종합지원센터</b>에서 특별히 제작한 온라인 전시회입니다.
         </div>
-        <p>체험 전시 · 그림 전시 · 음악 전시, 세 가지 전시를 휴대폰으로 즐겨요. 어린이집마다 따로 전시회를 만들어 쓰기 때문에 다른 곳과 섞이지 않아요.</p>
-        <button className="btn video-btn" onClick={() => setVideo(true)}>📺 사용법 영상 보기 <small>1분 38초 · 만들기부터 학부모 배부까지</small></button>
+        <p>체험·그림·음악 놀이를 아이들과 함께 즐기고, 우리 어린이집만의 전시회를 만들어 학부모님과 공유해 보세요!</p>
+        <div className="video-sec">
+          <b>📺 사용방법 안내 영상 보기</b>
+          <p>처음 이용하시는 분은 안내 영상(1분 38초)을 시청해 주세요. 영상을 보며 쉽게 따라 하실 수 있습니다.</p>
+          <button className="btn video-btn" onClick={() => setVideo(true)}>📺 사용방법 영상 보기</button>
+        </div>
       </div>
 
       {made ? (
@@ -100,12 +104,12 @@ export default function Home() {
         </div>
       ) : (
         <div className="card">
-          <h2>새 전시회 만들기 (기관용)</h2>
-          <p className="sub">원장님·선생님이 한 번만 만들면 됩니다. 만들고 나면 학부모께 보낼 주소가 나와요.</p>
+          <h2>🎪 우리 어린이집 전시회 만들기 (기관용)</h2>
+          <p className="sub">어린이집 이름과 관리 비밀번호를 입력해 주세요.<br />어린이집별로 하나의 전시회를 만들 수 있으며, 학부모님께 공유할 전시회 주소(링크)가 생성됩니다.</p>
           <label className="f">어린이집 이름</label>
-          <input className="inp" value={name} onChange={(e) => setName(e.target.value)} placeholder="예: 해오라기어린이집" maxLength={40} />
+          <input className="inp" value={name} onChange={(e) => setName(e.target.value)} placeholder="예) 해오라기어린이집" maxLength={40} />
           <label className="f">관리 비밀번호 (숫자 4~8자리)</label>
-          <input className="inp" value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))} placeholder="예: 1234" inputMode="numeric" maxLength={8} />
+          <input className="inp" value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))} placeholder="예) 1234" inputMode="numeric" maxLength={8} />
           {err && <div className="err">{err}</div>}
           <div style={{ height: 14 }} />
           <button className="btn" onClick={create} disabled={busy}>{busy ? "만드는 중…" : "전시회 만들기"}</button>
@@ -114,7 +118,7 @@ export default function Home() {
 
       <div className="card">
         <h2>🔑 우리 어린이집 전시회 다시 열기</h2>
-        <p className="sub">이전에 만든 전시회를 다시 이용하려면 전시회 코드(영문·숫자 6자리)를 입력해 주세요.</p>
+        <p className="sub">이전에 만든 전시회의 코드(영문·숫자 6자리)를 입력해 주세요.</p>
         <div className="row">
           <input className="inp" value={goCode} onChange={(e) => setGoCode(e.target.value)} placeholder="예: bpyp6c" maxLength={6} onKeyDown={(e) => e.key === "Enter" && go()} />
           <button className="btn" style={{ width: 110 }} onClick={go} disabled={goCode.trim().length < 6}>열기</button>
@@ -134,11 +138,11 @@ export default function Home() {
       )}
 
       <div className="card soft">
-        <h2>전시회에는 이런 게 있어요</h2>
+        <h2>🌈 온라인 전시회에서 만나는 특별한 놀이</h2>
         <ul className="feat">
-          <li><span>🤸</span><div><b>체험 전시</b><br />화면 속 사람을 따라 몸을 움직이는 「따라 해 보세요」 영상</div></li>
-          <li><span>🎨</span><div><b>그림 전시</b><br />오늘 내 기분을 얼굴 그림으로 그리면 전시장에 둥둥 떠다녀요</div></li>
-          <li><span>🎵</span><div><b>음악 전시</b><br />피아노·실로폰·오르골로 30초 노래를 만들어 전시해요</div></li>
+          <li><span>🎉</span><div><b>체험 전시</b><br />화면 속 움직임을 따라 하며 몸으로 즐기는 놀이</div></li>
+          <li><span>🎨</span><div><b>그림 전시</b><br />오늘의 기분을 그림으로 표현하고 전시하는 놀이</div></li>
+          <li><span>🎵</span><div><b>음악 전시</b><br />피아노·실로폰·오르골로 나만의 30초 음악을 만드는 놀이</div></li>
         </ul>
       </div>
       <footer className="home-foot">
