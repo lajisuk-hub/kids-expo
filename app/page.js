@@ -129,8 +129,8 @@ export default function Home() {
         <div className="modal-bg" onClick={() => setVideo(false)}>
           <div className="modal vmodal" onClick={(e) => e.stopPropagation()}>
             <button className="x" onClick={() => setVideo(false)} aria-label="닫기">✕</button>
-            <h2>📺 사용법 영상</h2>
-            <p className="sub">전시회 만들기 → 주소 2개 저장 → 학부모께 배부, 1분 38초예요.</p>
+            <h2>📺 사용법 영상(1분38초)</h2>
+            <p className="sub">전시회 만들기 → 주소 2개 저장 → 학부모께 배부</p>
             <video className="vmodal-video" src="https://pgywpdodatjfpivxmymn.supabase.co/storage/v1/object/public/suseong-hub/expo/guide-v2.mp4" controls autoPlay playsInline />
             <button className="btn" onClick={() => setVideo(false)} style={{ marginTop: 12 }}>영상 시청 완료! 전시회 만들기</button>
           </div>
