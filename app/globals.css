@@ -50,6 +50,8 @@ label.f { display: block; margin: 12px 0 6px; font-size: 14px; font-weight: 700;
 .linkbox { background: #fff4e4; border-radius: 14px; padding: 12px; margin-top: 10px; }
 .linkbox b { display: block; font-size: 13px; color: #7a5a3a; margin-bottom: 4px; }
 .linkbox code { display: block; font-size: 14px; word-break: break-all; background: #fff; border-radius: 8px; padding: 8px 10px; border: 1px solid var(--line); }
+.linknote { font-size: 13px; font-weight: 700; color: #d64545; margin: -2px 0 6px; }
+.allcopy p + p { margin-top: -4px; }
 .linkbox .row { margin-top: 8px; }
 .qrbig { display: block; width: 200px; height: 200px; margin: 10px auto; background: #fff; border-radius: 12px; }
 table.list { width: 100%; border-collapse: collapse; font-size: 14px; }

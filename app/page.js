@@ -48,10 +48,10 @@ export default function Home() {
     ? [
         `🎪 ${name.trim() || "우리 어린이집"} 온라인 전시회`,
         ``,
-        `① 학부모 링크 (카톡·QR로 보내는 주소)`,
+        `① 학부모 공유용 링크 (카톡·QR로 공유)`,
         `${origin}/e/${made.code}`,
         ``,
-        `② 기관 수정 링크 (비밀번호 필요 · 학부모께 보내지 마세요)`,
+        `② 기관 관리용 링크 (비밀번호 필요 · 학부모님께 공유하지 마세요)`,
         `${origin}/e/${made.code}/admin`,
         ``,
         `전시회 코드: ${made.code}`,
@@ -81,20 +81,22 @@ export default function Home() {
 
       {made ? (
         <div className="card">
-          <h2>🎉 우리 어린이집 전시회가 열렸어요</h2>
-          <p className="sub">아래 주소 2개를 꼭 저장해 두세요. 특히 <b>기관 관리 주소</b>는 이 화면을 닫으면 다시 볼 수 없어요.</p>
+          <h2>🎉 우리 어린이집 전시회가 열렸어요!</h2>
+          <p className="sub">아래 두 가지 주소를 꼭 저장해 주세요.</p>
+          <p className="sub">⚠️ 특히 <b>기관 관리 주소</b>는 이 화면을 닫으면 다시 볼 수 없어요!<br />화면을 닫기 전에 반드시 복사하여 안전하게 보관해 주세요.</p>
           {qr && <img className="qrbig" src={qr} alt="학부모 입장 QR" />}
-          <LinkBox label="① 학부모 링크 (카톡·QR로 보내는 주소)" url={`${origin}/e/${made.code}`} copy={copy} copied={copied} />
-          <LinkBox label="② 기관 수정 링크 (비밀번호 필요 · 이름 수정, 작품 숨기기)" url={`${origin}/e/${made.code}/admin`} copy={copy} copied={copied} />
-          <div className="warn">전시회 코드는 <b>{made.code}</b> 예요. 주소를 잃어버려도 이 첫 화면에서 코드를 넣으면 들어갈 수 있어요.</div>
+          <LinkBox label="① 학부모 공유용 링크 (카톡·QR로 공유)" url={`${origin}/e/${made.code}`} copy={copy} copied={copied} />
+          <LinkBox label="② 기관 관리용 링크 (비밀번호 필요 · 전시회 이름 변경·콘텐츠 공개 관리)" note="※ 학부모님께 공유하지 마세요!" url={`${origin}/e/${made.code}/admin`} copy={copy} copied={copied} />
           <div className="allcopy">
-            <b>📋 한 번에 저장하기</b>
-            <p>아래 글을 통째로 복사해서 <u>지금 내 카톡(나에게 보내기)</u>에 붙여 두세요. 학부모께 보낼 땐 학부모 링크 줄만 보내면 돼요.</p>
+            <b>📋 전시회 정보 모아 저장하기</b>
+            <p>전시회 주소 2개와 전시회 코드, 관리 비밀번호를 한 번에 복사할 수 있습니다.</p>
+            <p>[전체 복사하기] 버튼을 누른 후, <u>카카오톡 ‘나에게 보내기’</u>에 붙여넣어 안전하게 보관해 주세요.</p>
+            <p>※ 학부모님께는 <b>학부모 공유용 링크</b>만 전달해 주세요.</p>
             <pre>{summary}</pre>
             <button className="btn big" onClick={() => copy("all", summary)}>{copied === "all" ? "복사됐어요 ✓  이제 카톡에 붙여 넣으세요" : "📋 전체 복사하기"}</button>
           </div>
           <div style={{ height: 12 }} />
-          <a className="btn" href={`/e/${made.code}`} style={{ textDecoration: "none" }}>전시회 열어 보기 →</a>
+          <a className="btn" href={`/e/${made.code}`} style={{ textDecoration: "none" }}>전시회 열어보기 →</a>
         </div>
       ) : (
         <div className="card">
@@ -111,8 +113,8 @@ export default function Home() {
       )}
 
       <div className="card">
-        <h2>이미 만든 전시회 열기</h2>
-        <p className="sub">전시회 코드(6글자)를 아시면 여기에 넣으세요.</p>
+        <h2>🔑 우리 어린이집 전시회 다시 열기</h2>
+        <p className="sub">이전에 만든 전시회를 다시 이용하려면 전시회 코드(영문·숫자 6자리)를 입력해 주세요.</p>
         <div className="row">
           <input className="inp" value={goCode} onChange={(e) => setGoCode(e.target.value)} placeholder="예: bpyp6c" maxLength={6} onKeyDown={(e) => e.key === "Enter" && go()} />
           <button className="btn" style={{ width: 110 }} onClick={go} disabled={goCode.trim().length < 6}>열기</button>
@@ -147,14 +149,15 @@ export default function Home() {
   );
 }
 
-function LinkBox({ label, url, copy, copied }) {
+function LinkBox({ label, note, url, copy, copied }) {
   return (
     <div className="linkbox">
       <b>{label}</b>
+      {note && <div className="linknote">{note}</div>}
       <code>{url}</code>
       <div className="row">
         <button className="btn sm" onClick={() => copy(label, url)}>{copied === label ? "복사됐어요 ✓" : "주소 복사"}</button>
-        <a className="btn sm ghost" href={url} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>열어 보기</a>
+        <a className="btn sm ghost" href={url} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>열어보기</a>
       </div>
     </div>
   );

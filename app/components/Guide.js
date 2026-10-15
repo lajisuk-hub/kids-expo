@@ -26,8 +26,9 @@ export default function Guide({ org, onClose }) {
         <button className="x" onClick={onClose} aria-label="닫기">✕</button>
         <div className="guide-head">
           <span className="org">{org}</span>
-          <h2>온라인 전시회에 오신 걸 환영해요 🎪</h2>
-          <p className="sub">전시 3개를 아이와 함께 즐겨 보세요. 아래 단추 3개로 들어가고, 떠다니는 친구들 작품은 눌러서 볼 수 있어요.</p>
+          <h2>우리 어린이집 온라인 전시회에 오신 것을 환영합니다! 🎪</h2>
+          <p className="sub">아이들과 함께 체험·그림·음악 전시를 즐겨보세요!</p>
+          <p className="sub">아래 세 가지 전시 중 원하는 전시를 선택해 놀이하고, 전시 공간에 펼쳐진 친구들의 작품도 함께 감상해 보세요!</p>
         </div>
         <ol className="guide-list">
           {ITEMS.map((it) => (
