@@ -66,14 +66,15 @@ export default function Home() {
 
   return (
     <main className="page">
-      <div className="logos">
-        <img src="/logo-childcare.png" alt="수성구육아종합지원센터" />
-      </div>
       <div className="hero">
         <div className="hero-ic">🎪</div>
         <h1>우리 어린이집 온라인 전시회</h1>
         <div className="notice">
-          2026년 「AI 보육을 디자인하다」 성과보고회 참석자를 위해 <b>수성구 육아종합지원센터</b>에서 특별히 제작한 온라인 전시회입니다.
+          2026년 「AI 보육을 디자인하다」 성과보고회 참석자를 위해 제작한 온라인 전시회입니다.
+          <div className="notice-claude">
+            <b>✨ Claude와 함께 만드는 온라인 전시회</b>
+            <span>본 온라인 전시회는 AI 도구 Claude로 코딩하여 제작하였습니다.</span>
+          </div>
         </div>
         <p>체험·그림·음악 놀이를 아이들과 함께 즐기고, 우리 어린이집만의 전시회를 만들어 학부모님과 공유해 보세요!</p>
         <div className="video-sec">
@@ -130,7 +131,6 @@ export default function Home() {
           <div className="modal vmodal" onClick={(e) => e.stopPropagation()}>
             <button className="x" onClick={() => setVideo(false)} aria-label="닫기">✕</button>
             <h2>📺 사용법 영상(1분38초)</h2>
-            <p className="sub">전시회 만들기 → 주소 2개 저장 → 학부모께 배부</p>
             <video className="vmodal-video" src="https://pgywpdodatjfpivxmymn.supabase.co/storage/v1/object/public/suseong-hub/expo/guide-v2.mp4" controls autoPlay playsInline />
             <button className="btn" onClick={() => setVideo(false)} style={{ marginTop: 12 }}>영상 시청 완료! 전시회 만들기</button>
           </div>

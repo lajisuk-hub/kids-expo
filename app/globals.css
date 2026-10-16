@@ -313,6 +313,9 @@ iframe.play-video { border: 0; }
 .logo-sep { width: 1px; height: 36px; background: var(--line); }
 .notice { margin: 10px auto 12px; max-width: 560px; background: #fff; border: 3px solid var(--sun); border-radius: 18px; padding: 14px 18px; font-size: 17px; line-height: 1.55; color: var(--ink); box-shadow: 0 8px 24px rgba(120,80,50,.1); }
 .notice b { font-size: 20px; color: #2f6db5; }
+.notice-claude { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e8d9b8; }
+.notice .notice-claude b { display: block; font-size: 17px; color: #7a4fc4; }
+.notice-claude span { display: block; font-size: 14px; color: var(--muted); }
 .video-btn { max-width: 560px; margin: 4px auto 0; display: flex; flex-direction: column; gap: 2px; font-size: 22px; padding: 16px 20px; background: linear-gradient(180deg, #ff7b7b, #e8503f); font-family: var(--font-title); font-weight: 400; }
 .video-btn small { font-family: var(--font-ui); font-size: 13px; font-weight: 500; opacity: .92; }
 .video-sec { max-width: 560px; margin: 16px auto 0; background: #fff; border-radius: 18px; padding: 14px 16px; box-shadow: 0 8px 24px rgba(120,80,50,.08); }
